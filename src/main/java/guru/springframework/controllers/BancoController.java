@@ -76,7 +76,7 @@ public class BancoController {
         Iterable<Banco> bancoList = bancoService.listAllBancos();
 
         if(!bancoList.iterator().hasNext()) {
-            return new ResponseEntity("No existe ningún producto", HttpStatus.NOT_FOUND);
+            return new ResponseEntity("No existe ningún banco", HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity(bancoList, HttpStatus.OK);
         }
@@ -88,7 +88,7 @@ public class BancoController {
         Iterable<Banco> bancoList = bancoService.listAllBancos();
 
         if(!bancoList.iterator().hasNext()) {
-            return new ResponseEntity("No existe ningún producto", HttpStatus.NOT_FOUND);
+            return new ResponseEntity("No existe ningún banco", HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity(bancoList, HttpStatus.OK);
         }
@@ -134,7 +134,7 @@ public class BancoController {
             return new ResponseEntity("Banco with existing nroCuenta", HttpStatus.ALREADY_REPORTED);
         } else {
             bancoService.saveBanco(banco);
-            return new ResponseEntity("Product saved successfully", HttpStatus.OK);
+            return new ResponseEntity("Banco saved successfully", HttpStatus.OK);
         }
     }
 
