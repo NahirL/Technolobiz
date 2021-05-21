@@ -1,7 +1,9 @@
 package guru.springframework.bootstrap;
 
+import guru.springframework.domain.Banco;
 import guru.springframework.domain.Product;
 import guru.springframework.domain.User;
+import guru.springframework.repositories.BancoRepository;
 import guru.springframework.repositories.ProductRepository;
 
 
@@ -21,7 +23,7 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
 
     private ProductRepository productRepository;
     private UserRepository userRepository;
-
+    private BancoRepository bancoRepository;
 
     private Logger log = LogManager.getLogger(SpringJpaBootstrap.class);
 
@@ -35,12 +37,16 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
         this.userRepository = userRepository;
     }
 
+    @Autowired
+    public void setBancoRepository(BancoRepository bancoRepository) {
+        this.bancoRepository = bancoRepository;
+    }
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         loadProducts();
         loadUsers();
+        loadBancos();
     }
-
     private void loadProducts() {
         Product shirt = new Product();
         shirt.setDescription("Spring Framework Guru Shirt");
@@ -50,7 +56,6 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
         productRepository.save(shirt);
 
         log.info("Saved Shirt - id: " + shirt.getId());
-
         Product mug = new Product();
         mug.setDescription("Spring Framework Guru Mug");
         mug.setImageUrl("https://springframework.guru/wp-content/uploads/2015/04/spring_framework_guru_coffee_mug-r11e7694903c348e1a667dfd2f1474d95_x7j54_8byvr_512.jpg");
@@ -60,7 +65,6 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
 
         log.info("Saved Mug - id:" + mug.getId());
     }
-
     private void loadUsers() {
         User marco = new User();
         marco.setUserName("marco");
@@ -70,7 +74,7 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
         userRepository.save(marco);
 
         log.info("Saved Marco - id: " + marco.getId());
-
+        
         User kellen = new User();
         kellen.setUserName("kellen");
         kellen.setAvatar("https://images.unsplash.com/photo-1618278096912-d14cda36d45b?ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDZ8dG93SlpGc2twR2d8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60");
@@ -80,6 +84,29 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
 
         log.info("Saved Kellen - id: " + kellen.getId());
     }
+    
+    private void loadBancos() {
+    	Banco banco1 = new Banco();
+    	banco1.setDescription("Macro");
+        banco1.setSaldo(new BigDecimal("15000.99"));
+        banco1.setImageUrl("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Logo_Banco_Macro.svg/800px-Logo_Banco_Macro.svg.png");
+        banco1.setNroCuenta(111);
+        bancoRepository.save(banco1);
+
+        log.info("Saved Banco1 - id: " + banco1.getId());
+        
+        Banco banco2 = new Banco();
+    	banco2.setDescription("Santander");
+        banco2.setSaldo(new BigDecimal("25000.99"));
+        banco2.setImageUrl("https://logos-marcas.com/wp-content/uploads/2020/11/Santander-Logo.png");
+        banco2.setNroCuenta(222);
+        bancoRepository.save(banco2);
+
+        log.info("Saved Banco2 - id:" + banco2.getId());
+    	
+    }
+    
+    
 }
 
 

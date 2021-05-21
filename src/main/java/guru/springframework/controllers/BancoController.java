@@ -13,7 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/banco")
 @Api(value="onlinestore", description="Operations pertaining to bancos in Online Store")
 public class BancoController {
 
